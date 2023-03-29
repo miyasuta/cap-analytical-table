@@ -8,23 +8,24 @@ entity Books {
   unit: String @title: 'Unit of Measure'
 }
 
-@Aggregation.CustomAggregate#stock : 'Edm.Decimal'
+// @Aggregation.CustomAggregate#stock : 'Edm.Decimal'
 @Aggregation.ApplySupported: {
-  GroupableProperties: [ID, title, category],
-    Transformations: [
-      'aggregate',
-      'topcount',
-      'bottomcount',
-      'identity',
-      'concat',
-      'groupby',
-      'filter',
-      'expand',
-      'top',
-      'skip',
-      'orderby',
-      'search'
-    ]
+  PropertyRestrictions: true
+  // GroupableProperties: [ID, title, category],
+  //   Transformations: [
+  //     'aggregate',
+  //     'topcount',
+  //     'bottomcount',
+  //     'identity',
+  //     'concat',
+  //     'groupby',
+  //     'filter',
+  //     'expand',
+  //     'top',
+  //     'skip',
+  //     'orderby',
+  //     'search'
+  //   ]
 }
 entity BooksAggregate as projection on Books {
   ID,
@@ -34,4 +35,11 @@ entity BooksAggregate as projection on Books {
   @Aggregation.default: #SUM
   stock,
   unit
+}
+
+annotate BooksAggregate with {
+  @Analytics.Dimension: true
+  title;
+  @Analytics.Dimension: true
+  category;
 }
