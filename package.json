@@ -44,5 +44,10 @@
   },
   "sapux": [
     "app/list"
-  ]
+  ],
+  "cds": {
+    "features": {
+      "odata_new_parser": true
+    }
+  }
 }

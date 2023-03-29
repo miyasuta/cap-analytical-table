@@ -30,6 +30,7 @@ entity BooksAggregate as projection on Books {
   ID,
   title,
   category,
+  @Analytics.Measure : true
   @Aggregation.default: #SUM
   stock,
   unit
