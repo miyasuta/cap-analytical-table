@@ -14,6 +14,10 @@ annotate CatalogService.BooksAggregate with@(
         LineItem: [
             {
                 $Type : 'UI.DataField',
+                Value : ID,
+            },
+            {
+                $Type : 'UI.DataField',
                 Value : category,
             },
             {
