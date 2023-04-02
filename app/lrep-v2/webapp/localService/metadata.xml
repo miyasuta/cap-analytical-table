@@ -1,23 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
-    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Aggregation.V1.xml">
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Aggregation.V1.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
         <edmx:Include Alias="Aggregation" Namespace="Org.OData.Aggregation.V1"/>
     </edmx:Reference>
-    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Analytics.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Alias="Analytics" Namespace="com.sap.vocabularies.Analytics.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
         <edmx:Include Alias="Capabilities" Namespace="Org.OData.Capabilities.V1"/>
     </edmx:Reference>
-    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
         <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
     </edmx:Reference>
-    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Measures.V1.xml">
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Measures.V1.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
         <edmx:Include Alias="Measures" Namespace="Org.OData.Measures.V1"/>
     </edmx:Reference>
-    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
         <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
     </edmx:Reference>
-    <edmx:DataServices>
-        <Schema Namespace="CatalogService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
-            <EntityContainer Name="EntityContainer">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="CatalogService" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityContainer Name="EntityContainer" m:IsDefaultEntityContainer="true">
                 <EntitySet Name="Books" EntityType="CatalogService.Books"/>
                 <EntitySet Name="BooksAggregate" EntityType="CatalogService.BooksAggregate"/>
             </EntityContainer>
@@ -41,7 +47,7 @@
                 <Property Name="stock" Type="Edm.Int32"/>
                 <Property Name="unit" Type="Edm.String"/>
             </EntityType>
-            <Annotations Target="CatalogService.EntityContainer/Books">
+            <Annotations Target="CatalogService.EntityContainer/Books" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Capabilities.DeleteRestrictions">
                     <Record Type="Capabilities.DeleteRestrictionsType">
                         <PropertyValue Property="Deletable" Bool="false"/>
@@ -58,22 +64,22 @@
                     </Record>
                 </Annotation>
             </Annotations>
-            <Annotations Target="CatalogService.Books/ID">
+            <Annotations Target="CatalogService.Books/ID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Common.Label" String="ID"/>
             </Annotations>
-            <Annotations Target="CatalogService.Books/title">
+            <Annotations Target="CatalogService.Books/title" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Common.Label" String="Title"/>
             </Annotations>
-            <Annotations Target="CatalogService.Books/category">
+            <Annotations Target="CatalogService.Books/category" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Common.Label" String="Category"/>
             </Annotations>
-            <Annotations Target="CatalogService.Books/stock">
+            <Annotations Target="CatalogService.Books/stock" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Common.Label" String="Stock"/>
             </Annotations>
-            <Annotations Target="CatalogService.Books/unit">
+            <Annotations Target="CatalogService.Books/unit" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Common.Label" String="Unit of Measure"/>
             </Annotations>
-            <Annotations Target="CatalogService.BooksAggregate">
+            <Annotations Target="CatalogService.BooksAggregate" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="UI.SelectionFields">
                     <Collection>
                         <PropertyPath>category</PropertyPath>
@@ -96,30 +102,10 @@
                         </Record>
                     </Collection>
                 </Annotation>
-                <Annotation Term="Aggregation.CustomAggregate" Qualifier="stock" String="Edm.Decimal"/>
-                <Annotation Term="Aggregation.ApplySupported">
-                    <Record Type="Aggregation.ApplySupportedType">
-                        <PropertyValue Property="GroupableProperties">
-                            <Collection>
-                                <PropertyPath>title</PropertyPath>
-                                <PropertyPath>category</PropertyPath>
-                            </Collection>
-                        </PropertyValue>
-                    </Record>
-                </Annotation>
+                <Annotation Term="Aggregation.ApplySupported" String="true"/>
             </Annotations>
-            <Annotations Target="CatalogService.EntityContainer/BooksAggregate">
-                <Annotation Term="Aggregation.CustomAggregate" Qualifier="stock" String="Edm.Decimal"/>
-                <Annotation Term="Aggregation.ApplySupported">
-                    <Record Type="Aggregation.ApplySupportedType">
-                        <PropertyValue Property="GroupableProperties">
-                            <Collection>
-                                <PropertyPath>title</PropertyPath>
-                                <PropertyPath>category</PropertyPath>
-                            </Collection>
-                        </PropertyValue>
-                    </Record>
-                </Annotation>
+            <Annotations Target="CatalogService.EntityContainer/BooksAggregate" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Aggregation.ApplySupported" String="true"/>
                 <Annotation Term="Capabilities.DeleteRestrictions">
                     <Record Type="Capabilities.DeleteRestrictionsType">
                         <PropertyValue Property="Deletable" Bool="false"/>
@@ -136,20 +122,21 @@
                     </Record>
                 </Annotation>
             </Annotations>
-            <Annotations Target="CatalogService.BooksAggregate/ID">
+            <Annotations Target="CatalogService.BooksAggregate/ID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Common.Label" String="ID"/>
             </Annotations>
-            <Annotations Target="CatalogService.BooksAggregate/title">
+            <Annotations Target="CatalogService.BooksAggregate/title" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Common.Label" String="Title"/>
             </Annotations>
-            <Annotations Target="CatalogService.BooksAggregate/category">
+            <Annotations Target="CatalogService.BooksAggregate/category" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Common.Label" String="Category"/>
             </Annotations>
-            <Annotations Target="CatalogService.BooksAggregate/stock">
+            <Annotations Target="CatalogService.BooksAggregate/stock" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Measures.Unit" Path="unit"/>
+                <Annotation Term="Analytics.Measure" Bool="true"/>
                 <Annotation Term="Common.Label" String="Stock"/>
             </Annotations>
-            <Annotations Target="CatalogService.BooksAggregate/unit">
+            <Annotations Target="CatalogService.BooksAggregate/unit" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Common.Label" String="Unit of Measure"/>
             </Annotations>
         </Schema>

@@ -5,41 +5,11 @@ entity Books {
   title  : String @title: 'Title';
   category: String @title: 'Category';
   stock  : Integer @title: 'Stock';
-  unit: String @title: 'Unit of Measure'
 }
 
-//@Aggregation.ApplySupported
-// @Aggregation.CustomAggregate#stock : 'Edm.Decimal'
-@Aggregation.ApplySupported: {
-    Transformations: [
-      'aggregate',
-      'topcount',
-      'bottomcount',
-      'identity',
-      'concat',
-      'groupby',
-      'filter',
-      'expand',
-      'top',
-      'skip',
-      'orderby',
-      'search'
-    ]
-}
-//@Aggregation.ApplySupported
 entity BooksAggregate as projection on Books {
   ID,
   title,
   category,
-  @Analytics.Measure : true
-  @Aggregation.default: #SUM
-  stock,
-  unit
+  stock
 }
-
-// annotate BooksAggregate with {
-//   @Analytics.Dimension: true
-//   title;
-//   @Analytics.Dimension: true
-//   category;
-// }

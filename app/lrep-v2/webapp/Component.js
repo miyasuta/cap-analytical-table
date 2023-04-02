@@ -1,9 +1,9 @@
 sap.ui.define(
-    ["sap/fe/core/AppComponent"],
+    ["sap/suite/ui/generic/template/lib/AppComponent"],
     function (Component) {
         "use strict";
 
-        return Component.extend("list.Component", {
+        return Component.extend("lrepv2.Component", {
             metadata: {
                 manifest: "json"
             }
