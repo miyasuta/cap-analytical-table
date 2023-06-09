@@ -3,7 +3,15 @@ using CatalogService from './cat-service';
 //aggregation annotations
 // v4
 annotate CatalogService.BooksAggregate with @(
-  Aggregation.ApplySupported
+  // Aggregation.ApplySupported,
+  Aggregation.ApplySupported: {
+    GroupableProperties: [
+      ID,
+      title,
+      category
+    ]
+  },
+  Aggregation.CustomAggregate #stock: 'Integer'
 ){
   stock @Analytics.Measure @Aggregation.default: #SUM
 }
@@ -16,7 +24,6 @@ annotate CatalogService.BooksAggregate with @(
   category @sap.aggregation.role: 'dimension';
   title @sap.aggregation.role: 'dimension';
   stock @sap.aggregation.role: 'measure';
-
 };
 
 // //unit of measure annotations
