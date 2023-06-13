@@ -11,7 +11,7 @@ annotate CatalogService.BooksAggregate with @(
       category
     ]
   },
-  Aggregation.CustomAggregate #stock: 'Integer'
+  Aggregation.CustomAggregate #stock: 'Edm.Int32'
 ){
   stock @Analytics.Measure @Aggregation.default: #SUM
 }
