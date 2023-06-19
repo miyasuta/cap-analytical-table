@@ -3,7 +3,6 @@ using CatalogService from './cat-service';
 //aggregation annotations
 // v4
 annotate CatalogService.BooksAggregate with @(
-  // Aggregation.ApplySupported,
   Aggregation.ApplySupported: {
     GroupableProperties: [
       ID,
@@ -41,10 +40,18 @@ annotate CatalogService.BooksAggregate with @(
 //ui annotations
 annotate CatalogService.BooksAggregate with@(
     UI: {
-        SelectionFields  : [
-            category,
-            title
-        ],
+          PresentationVariant: {
+            Total: [
+              stock
+            ],
+            Visualizations: [
+              '@UI.LineItem'
+            ]
+          },
+          SelectionFields  : [
+              category,
+              title
+          ],
         LineItem: [
             {
                 $Type : 'UI.DataField',
